@@ -42,6 +42,7 @@ class CasHandler:
         self._registration_handler = hs.get_registration_handler()
 
         self._cas_server_url = hs.config.cas_server_url
+        self._cas_server_ticket_uri = hs.config.cas_server_ticket_uri
         self._cas_service_url = hs.config.cas_service_url
         self._cas_displayname_attribute = hs.config.cas_displayname_attribute
         self._cas_required_attributes = hs.config.cas_required_attributes
@@ -179,7 +180,7 @@ class CasHandler:
             {"service": self._build_service_param(client_redirect_url)}
         )
 
-        return ("%s/login?%s" % (self._cas_server_url, args)).encode("ascii")
+        return ("%s?%s" % (self._cas_server_url + self._cas_server_ticket_uri, args)).encode("ascii")
 
     async def handle_ticket_request(
         self, request: SynapseRequest, client_redirect_url: str, ticket: str
