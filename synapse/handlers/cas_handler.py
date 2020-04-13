@@ -43,6 +43,7 @@ class CasHandler:
 
         self._cas_server_url = hs.config.cas_server_url
         self._cas_server_ticket_uri = hs.config.cas_server_ticket_uri
+        self._cas_server_validate_uri = hs.config.cas_server_validate_uri
         self._cas_service_url = hs.config.cas_service_url
         self._cas_displayname_attribute = hs.config.cas_displayname_attribute
         self._cas_required_attributes = hs.config.cas_required_attributes
@@ -190,7 +191,7 @@ class CasHandler:
 
         On a successful request, writes a redirect to the request.
         """
-        uri = self._cas_server_url + "/proxyValidate"
+        uri = self._cas_server_url + self._cas_server_validate_uri
         args = {
             "ticket": ticket,
             "service": self._build_service_param(client_redirect_url),
