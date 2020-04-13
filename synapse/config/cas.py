@@ -29,12 +29,16 @@ class CasConfig(Config):
         if cas_config:
             self.cas_enabled = cas_config.get("enabled", True)
             self.cas_server_url = cas_config["server_url"]
+            self.cas_server_ticket_uri = cas_config.get("server_ticket_uri", "/login")
+            self.cas_server_validate_uri = cas_config.get("server_validate_uri", "/proxyValidate")
             self.cas_service_url = cas_config["service_url"]
             self.cas_displayname_attribute = cas_config.get("displayname_attribute")
             self.cas_required_attributes = cas_config.get("required_attributes", {})
         else:
             self.cas_enabled = False
             self.cas_server_url = None
+            self.cas_server_ticket_uri = None
+            self.cas_server_validate_uri = None
             self.cas_service_url = None
             self.cas_displayname_attribute = None
             self.cas_required_attributes = {}
@@ -46,6 +50,8 @@ class CasConfig(Config):
         #cas_config:
         #   enabled: true
         #   server_url: "https://cas-server.com"
+        #   server_ticket_uri: "/login"
+        #   server_validate_uri: "/proxyValidate"
         #   service_url: "https://homeserver.domain.com:8448"
         #   #displayname_attribute: name
         #   #required_attributes:
